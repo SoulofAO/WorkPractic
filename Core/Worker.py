@@ -25,4 +25,15 @@ class UWorker:
         JsonLibrary.replace_variables_by_name(body, 'field_pochta', self.email)
         JsonLibrary.replace_variables_by_name(body, 'field_strana', self.country, 0)
         JsonLibrary.replace_variables_by_name(body, 'field_podrazdelenie', self.podrazdelenie)
+        JsonLibrary.replace_variables_by_name(body, 'field_podrazdelenie', self.podrazdelenie)
+        return body
+
+    def DeserializePatchJSON(self):
+        reader = open("BaseWorkerPatchExample.txt", "r+")
+        body = json.loads(reader.read())
+        JsonLibrary.replace_variables_by_name(body, "id", self.id)
+        JsonLibrary.replace_variables_by_name(body, "title", self.name)
+        JsonLibrary.replace_variables_by_name(body, 'field_pochta', self.email)
+        JsonLibrary.replace_variables_by_name(body, 'field_strana', self.country, 0)
+        JsonLibrary.replace_variables_by_name(body, 'field_podrazdelenie', self.podrazdelenie)
         return body

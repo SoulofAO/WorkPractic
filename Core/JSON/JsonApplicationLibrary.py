@@ -14,6 +14,8 @@ def GetWorkersRequest():
         return [response.status_code, data]
     else:
         print("Ошибка при выполнении GET запроса")
+        print(f"Статус код ошибки: {response.status_code}")
+        print(f"Текст ошибки: {response.text}")
 
 
 def LoginOnDrupal():
@@ -87,15 +89,45 @@ def DeleteWorker(delete_worker):
 
 def PatchWorker(patch_worker):
     url = config_file.host_link + '/jsonapi/node/rabotnik/' + patch_worker.id
+    body = patch_worker.DeserializePatchJSON()
 
     headers = {
+        'Content-Type': 'application/vnd.api+json',
         'X-CSRF-Token': str(config_file.csrf_token)
     }
-    response = config_file.session.delete(url, headers=headers)
+    response = config_file.session.patch(url, json=body, headers=headers)
 
-    if response.status_code == 204:
-        print("Sucsess delete")
+    if response.status_code == 200:
+        print("Sucsess patch")
     else:
-        print("Ошибка при выполнении DELETE запроса:")
+        print("Ошибка при выполнении Patch запроса:")
         print(f"Статус код ошибки: {response.status_code}")
         print(f"Текст ошибки: {response.text}")
+
+
+def GetAllPodrazdelenieOptions():
+    url = config_file.host_link + '/jsonapi/taxonomy_term/tip_podrazdeleniya'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return [response.status_code, data]
+    else:
+        print("Ошибка при выполнении GET запроса")
+        print(f"Статус код ошибки: {response.status_code}")
+        print(f"Текст ошибки: {response.text}")
+
+
+
+def GetAllPodrazdelenieOptionNames():
+    data = GetAllPodrazdelenieOptions()
+    if data[0] == 200:
+        s = []
+        for json_entity in data[1]['data']:
+            name = JsonLibrary.find_variables_by_name(json_entity, "name")
+            name = str(name)[2:]
+            name = name[:(len(name)-2)]
+            s.append(name)
+        return s
+    else:
+        return ["None"]

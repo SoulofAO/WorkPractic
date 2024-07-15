@@ -117,7 +117,7 @@ class UWorkerWidget(QWidget):
         # Создаем выпадающий список для выбора должности
         position_label = QLabel('Должность:')
         self.position_combobox = QComboBox()
-        positions = ['None', 'Менеджер', 'Разработчик', 'Дизайнер', 'Аналитик']
+        positions = JSONEntityManager.JsonApplicationLibrary.GetAllPodrazdelenieOptionNames()
         self.position_combobox.addItems(positions)
         self.position_combobox.setCurrentText(self.GetWorkPosition())
 

@@ -1,0 +1,25 @@
+ {
+    "data":
+        {
+            "type": "node--rabotnik",
+            "id" : "test_id",
+            "attributes": {
+                "revision_log": null,
+                "status": true,
+                "title": "НЕ Пушкин V3",
+                "created": "2024-07-05T08:41:06+00:00",
+                "promote": true,
+                "sticky": false,
+                "revision_translation_affected": true,
+                "path": {
+                    "alias": null,
+                    "pid": null,
+                    "langcode": "us"
+                },
+                "body": null,
+                "field_pochta": "gjkhhjkhbkb@gmail.com",
+                "field_podrazdelenie": "Отдел маркетинга",
+                "field_strana": "US"
+            }
+        }
+}

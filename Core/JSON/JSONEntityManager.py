@@ -76,7 +76,12 @@ class UEntityManager:
 
     def PatchWorker(self, worker):
         JsonApplicationLibrary.LoginOnDrupal()
+        JsonApplicationLibrary.PatchWorker(worker)
         self.UpdateWorkers()
+
+
+
+
 
 
 entity_manager = UEntityManager()
