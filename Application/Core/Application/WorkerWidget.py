@@ -15,6 +15,20 @@ def CheckEmail(email):
         return False
 
 
+def CheckCountry(country_name):
+    if country_name != "None":
+        return True
+    else:
+        return False
+
+
+def CheckMainName(main_name):
+    if main_name != "":
+        return True
+    else:
+        return False
+
+
 def GetAllCountry():
     all_countries = list(pycountry.countries)
 
@@ -26,11 +40,11 @@ def GetAllCountry():
 
 
 class UErrorWindow(QWidget):
-    def __init__(self):
+    def __init__(self, name, text):
         super().__init__()
-        self.setWindowTitle("Ошибка ввода email")
+        self.setWindowTitle(name)
 
-        self.error_label = QLabel("Неверный формат email. Пожалуйста, введите корректный email.")
+        self.error_label = QLabel(text)
         self.exit_button = QPushButton("Закрыть")
         self.exit_button.clicked.connect(self.BindClose)
 
@@ -145,8 +159,17 @@ class UWorkerWidget(QWidget):
         self.show()
 
     def BindApplySettings(self):
-        if not CheckEmail(self.email_edit.text()):
-            self.error_window = UErrorWindow()
+        if not CheckMainName(self.name_edit.text()):
+            self.error_window = UErrorWindow("Ошибка ввода MainName",
+                                             "MainName не может быть пустым")
+            self.error_window.show()
+        elif not CheckEmail(self.email_edit.text()):
+            self.error_window = UErrorWindow("Ошибка ввода email",
+                                             "Неверный формат email. Пожалуйста, введите корректный email.")
+            self.error_window.show()
+        elif not CheckCountry(self.country_combobox.currentText()):
+            self.error_window = UErrorWindow("Ошибка ввода Country",
+                                             "Country не может быть None")
             self.error_window.show()
         else:
             all_countries = GetAllCountry().items()
